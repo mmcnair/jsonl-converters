@@ -2,6 +2,7 @@
 This project houses some simple scripts to generically convert JSONL files into either CSV or XML.  It currently only supports flat JSON structures and does not support nested arrays or JSON objects.
 
 ## JSONL to CSV
+```
 usage: jsonl_to_csv.py [-h] -i INPUT_FILENAME [-o OUTPUT_FILENAME]
                       [-b BLACKLISTED_FIELDS] [-w WHITELISTED_FIELDS]
                       [-m MAPPING_CSV_FILENAME]
@@ -22,6 +23,7 @@ optional arguments:
   -m MAPPING_CSV_FILENAME, --mapping-csv-filename MAPPING_CSV_FILENAME
                         Location of CSV with `from` and `to` columns to remap
                         field names.
+```
 
 ### example usage
 Generates a CSV excluding the `rawhtml` and `value` fields from the output.
@@ -50,6 +52,7 @@ Customize output fieldnames by providing a field mapping file csv.  Only the fie
 ```
 
 ## JSONL to XML
+```
 usage: jsonl_to_xml.py [-h] -f FILENAME [-r ROOT_TAG] [-i ITEM_TAG]
                        [-o OUTPUT_FILENAME] [-b BLACKLISTED_FIELDS]
                        [-w WHITELISTED_FIELDS] [-m MAPPING_CSV_FILENAME]
@@ -75,7 +78,8 @@ optional arguments:
   -m MAPPING_CSV_FILENAME, --mapping-csv-filename MAPPING_CSV_FILENAME
                         Location of CSV with `from` and `to` columns to remap
                         field names.
-                        
+```
+    
 ### example usage
 Generates XML excluding the `rawhtml` and `value` fields from the output.
 ```
