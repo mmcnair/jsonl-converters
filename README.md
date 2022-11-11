@@ -46,7 +46,7 @@ Customize the name of the output file.
 ./jsonl_to_csv.py -i sample.json -o customized_output_name.csv
 ```
 
-Customize output fieldnames by providing a field mapping file csv.  Only the fields that need to be renamed need to be provided.  If a mapping does not exist for a field, then the original name will be used.
+Customize output fieldnames by providing a field mapping csv file.  Only the fields that need to be renamed need to be provided.  If a mapping does not exist for a field, then the original name will be used.
 ```
 ./jsonl_to_csv.py -i sample.json -m mappings.csv
 ```
@@ -101,7 +101,7 @@ Customize the name of the output file.
 ./jsonl_to_xml.py -i sample.json -o customized_output_name.xml
 ```
 
-Customize output fieldnames by providing a field mapping file xml.  Only the fields that need to be renamed need to be provided.  If a mapping does not exist for a field, then the original name will be used.
+Customize output fieldnames by providing a field mapping csv file.  Only the fields that need to be renamed need to be provided.  If a mapping does not exist for a field, then the original name will be used.
 ```
 ./jsonl_to_xml.py -i sample.json -m mappings.csv
 ```
