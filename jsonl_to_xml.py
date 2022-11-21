@@ -6,6 +6,27 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 import argparse
 
+def safe_stringify(value):
+    if isinstance(value, bool) or isinstance(value, int) or isinstance(value, float):
+        return str(value)
+    
+    return value
+
+def handle_list(elem, items):
+    for item in items:
+        list_item_tag = ET.SubElement(elem, f'li')
+        value = safe_stringify(item)
+        assert isinstance(value, str), f"Complex Structures are not supported.  Found a {type(value)} inside a list.  This structure is not supported.  It is recommend to blacklist the '{elem.tag}' field."
+        
+        list_item_tag.text = value
+
+def handle_obj(elem, obj):
+    for key in obj.keys():
+        value = safe_stringify(obj[key])
+        assert isinstance(value, str), f"Complex Structures are not supported.  Found a {type(value)} inside a structure.  This structure is not supported.  It is recommend to blacklist the '{elem.tag}' field."
+
+        elem.set(key, value)
+
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--filename", required=True, help="The input file you'd like to convert")
 ap.add_argument("-r", "--root-tag", default="root", help="The root element for the XML document. Default 'root'.")
@@ -49,7 +70,14 @@ while current_line:
     item = ET.SubElement(root, args.item_tag)
     for key in fieldnames:
         key_tag = ET.SubElement(item, key)
-        key_tag.text = input_object[reverse_mappings.get(key, key)]
+        value = input_object.get(reverse_mappings.get(key, key))
+            
+        if isinstance(value, list):
+            handle_list(key_tag, value)
+        elif isinstance(value, dict):
+            handle_obj(key_tag, value)
+        else:
+            key_tag.text = safe_stringify(value)
     
     current_line = input_file.readline()
 
@@ -59,5 +87,3 @@ output_filename = args.output_filename if args.output_filename else f'{args.file
 xmlstr = minidom.parseString(ET.tostring(root)).toprettyxml()
 with open(output_filename, "w", encoding='utf-8') as f:
     f.write(xmlstr)
-
-
