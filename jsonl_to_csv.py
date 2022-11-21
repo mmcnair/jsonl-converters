@@ -47,7 +47,7 @@ while current_line:
     output_object = {}
     input_object = json.loads(current_line.strip())
     for key in fieldnames:
-        output_object[key] = input_object[reverse_mappings.get(key, key)]
+        output_object[key] = input_object.get(reverse_mappings.get(key, key))
     
     output_csv.writerow(output_object)
     current_line = input_file.readline()
